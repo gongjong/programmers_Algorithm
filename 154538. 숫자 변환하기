@@ -1,0 +1,22 @@
+def solution(x, y, n):
+    answer = 0
+    num_list = set() 
+    num_list.add(x)
+    
+    while num_list:
+        if y in num_list:
+            return answer
+        
+        c_num = set()
+        for i in num_list:
+            if i*2 <= y:
+                c_num.add(i*2)
+            if i*3 <= y:
+                c_num.add(i*3)
+            if i + n <= y:
+                c_num.add(i+n)
+        
+        num_list = c_num
+        answer += 1
+    
+    return -1
