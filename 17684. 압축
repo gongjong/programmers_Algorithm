@@ -1,0 +1,21 @@
+def solution(msg):
+    #A~Z까지 value:idx로 사전 생성
+    alpha = {chr(i+65):i+1 for i in range(26)}
+    answer = []
+    i, num = 0, 27
+    check = ''
+    
+    while i < len(msg):
+        check += msg[i]
+        #해당 check가 alpha에 있으면 계속 point 증가
+        if check in alpha:
+            i += 1
+        #없다면 새롭게 추가하고, alpha에 있던것 answer에 추가
+        else:
+            alpha[check] = num
+            num += 1
+            answer.append(alpha[check[:-1]])
+            check = ''
+            
+    answer.append(alpha[check])
+    return answer
