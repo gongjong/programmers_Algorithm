@@ -1,0 +1,23 @@
+#주의점 : 대소문자 구분없이 사전순 정렬을 했는가?
+# 숫자부분의 길이가 5가 넘어가면 나머지 부분은 Tail로 처리했는가?
+# Tail로 처리를 하다가, 다시 숫자가 나왔을때도 그대로 Tail로 처리되는가? <- 이 부분을 처리 하지 않아서 틀림
+
+def solution(files):
+    answer = []
+    
+    for file in files:
+        head, num, tail = '', '', ''
+        for i in range(len(file)):
+            if file[i].isdigit() and len(num) <= 5:
+                num += file[i]
+            elif num == '':
+                head += file[i]
+            else:
+                tail = file[i:]
+                break
+        
+        answer.append([head, num, tail])
+    
+    answer = sorted(answer, key = lambda x:(x[0].lower(), int(x[1])))
+    
+    return ["".join(a) for a in answer]
