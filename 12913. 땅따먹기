@@ -1,0 +1,7 @@
+def solution(land):
+    for i in range(1, len(land)):
+        for j in range(len(land[0])):
+            #두번째 줄 부터 하나 아래 줄의 가장 큰 값을 더한다.
+            land[i][j] += max(land[i-1][:j] + land[i-1][j+1:])
+    
+    return max(land[-1])
