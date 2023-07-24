@@ -1,0 +1,20 @@
+#Tip: 간단하게 생각해라.
+#     Counter 와 set 모두 len()을 이용해서 개수를 알 수 있다.
+
+from collections import Counter as c
+
+def solution(topping):
+    answer = 0
+    t_t = c(topping)
+    m_t = set()
+    
+    for t in topping:
+        t_t[t] -= 1
+        m_t.add(t)
+        
+        if t_t[t] == 0:
+            t_t.pop(t)
+        if len(t_t) == len(m_t):
+            answer += 1
+    
+    return answer
