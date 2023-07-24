@@ -1,0 +1,16 @@
+from collections import Counter as c
+
+def solution(str1, str2):
+    #입력 문자열 두 글자씩 끊기, 해당 문자가 영어인지 확인 후 소문자로 변환
+    str1 = [str1[i:i+2].lower() for i in range(len(str1)-1) if str1[i:i+2].isalpha()]
+    str2 = [str2[i:i+2].lower() for i in range(len(str2)-1) if str2[i:i+2].isalpha()]
+    
+    s1, s2 = c(str1), c(str2)
+    #교집합
+    intersection = len(list((s1&s2).elements()))
+    #합집합
+    union = len(list((s1|s2).elements()))
+    
+    #합집합이 0이면 공집합이다.
+    answer = intersection/union if union else 1
+    return int(answer*65536)
