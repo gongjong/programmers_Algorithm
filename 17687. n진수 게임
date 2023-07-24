@@ -1,0 +1,24 @@
+#진수 변환 코드
+def change(n, b):
+    base = '0123456789ABCDEF'
+    
+    num, div = divmod(n, b)
+    if num:
+        return change(num, b) + base[div]
+    else:
+        return base[div]
+
+
+def solution(n, t, m, p):
+    total_num = ''
+    answer = ''
+    
+    #최대 구할 10진수에 따라 t*m만큼 반복
+    for i in range(t*m):
+        total_num += change(i, n)
+        
+    while t > len(answer):
+        answer += total_num[p-1]
+        p += m
+    
+    return answer
