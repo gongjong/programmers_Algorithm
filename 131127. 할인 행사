@@ -1,0 +1,15 @@
+from collections import Counter as counter
+
+def solution(want, number, discount):
+    answer = 0
+    
+    #원하는 물건과 해당 숫자를 dict형태로 조합
+    dic = {product:count for product, count in zip(want, number)}
+    
+    for day in range(len(discount)):
+        #해당 날자를 counter형으로 변환한 뒤 만들어둔 dict와 비교
+        if counter(discount[day:day+10]) == dic:
+            answer += 1
+        
+    
+    return answer
