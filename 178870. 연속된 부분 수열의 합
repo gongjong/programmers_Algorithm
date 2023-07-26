@@ -1,0 +1,48 @@
+#try 1 -> timeout 
+#2중 반복문을 사용해서 sequence의 길이를 감당 못한거 같다.
+
+def solution(sequence, k):
+    answer = []
+    
+    
+    for n in range(len(sequence)):
+        total = 0
+        stack = []
+        for i, num in enumerate(sequence[n:]):
+            total += num
+            stack.append(n+i)
+            if total >= k:
+                if total == k:
+                    answer.append(stack)
+                break
+            
+    answer = sorted(answer, key = lambda x:len(x))
+    return [answer[0][0], answer[0][-1]]
+
+
+#try 2 -> 해결
+
+def solution(sequence, k):
+    answer = []
+    total = 0
+    #증가는 잘했는데 감소부분에서 지나 가야 감소 된다는것을 알아야함
+    f, d = 0, -1
+
+    while True:
+        if total > k:
+            total -= sequence[f]
+            f += 1
+            if f >= len(sequence):
+                break
+        else:
+            d += 1
+            if d >= len(sequence):
+                break
+            total += sequence[d]
+        if total == k:
+            answer.append([f, d])
+
+    #격차가 가장 작은것이 조건 1, 가장 앞에 나오는게 조건 2
+    answer = sorted(answer, key = lambda x:(x[1] - x[0], x[0]))
+        
+    return answer[0]
