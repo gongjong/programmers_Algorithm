@@ -1,0 +1,18 @@
+#itertools -> Counter 속에 있는 most_commen() 함수를 알게 되었다.
+
+from collections import Counter as counter
+from itertools import combinations as combi
+
+def solution(orders, course):
+    answer = []
+    
+    for num in course:
+        menu_list = list()
+        for order in orders:
+            for menu_ in combi(order, num):
+                menu_list.append("".join(sorted(menu_)))
+        menu = counter(menu_list).most_common()
+        answer += [m for m, c in menu if c > 1 and c == menu[0][1]]
+            
+    
+    return sorted(answer)
