@@ -1,0 +1,52 @@
+#try1 -> timeout
+#sum을 사용해서 문제를 해결하려고 해서 시간이 오래걸림.
+
+def solution(queue1, queue2):
+    answer = 0
+    total = (sum(queue1) + sum(queue2))//2
+    
+    while True:
+        if answer > len(queue1) + len(queue2):
+            return -1
+        if sum(queue1) == total:
+            break
+        if sum(queue1) > sum(queue2):
+            queue2.append(queue1.pop(0))
+        else:
+            queue1.append(queue2.pop(0))
+        answer += 1
+    
+    return answer
+
+#try2 -> 해결
+#sum을 앞에서 한번만 하고, 값을 따로 더하고 뺸다.
+from collections import deque
+
+def solution(queue1, queue2):
+    answer = 0
+    q1 = deque(queue1)
+    q2 = deque(queue2)
+    q1_s = sum(q1)
+    q2_s = sum(q2)
+    total = (q1_s + q2_s)//2
+    limit = (len(q1) + len(q2))*2
+    
+    while True:
+        if answer > limit:
+            return -1
+        if q1_s == total:
+            break
+        if q1_s > q2_s:
+            num = q1.popleft()
+            q2.append(num)
+            q1_s -= num
+            q2_s += num
+        else:
+            num = q2.popleft()
+            q1.append(num)
+            q2_s -= num
+            q1_s += num
+        answer += 1
+        
+    
+    return answer
