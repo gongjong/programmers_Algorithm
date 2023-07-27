@@ -24,29 +24,31 @@ from collections import deque
 
 def solution(queue1, queue2):
     answer = 0
-    q1 = deque(queue1)
-    q2 = deque(queue2)
-    q1_s = sum(q1)
-    q2_s = sum(q2)
-    total = (q1_s + q2_s)//2
-    limit = (len(q1) + len(q2))*2
+    queue1 = deque(queue1)
+    queue2 = deque(queue2)
+    q1 = sum(queue1)
+    q2 = sum(queue2)
+    target = (q1 + q2)//2
+    cnt = (len(queue1) + len(queue2))+1
     
     while True:
-        if answer > limit:
-            return -1
-        if q1_s == total:
+        if target == q1:
             break
-        if q1_s > q2_s:
-            num = q1.popleft()
-            q2.append(num)
-            q1_s -= num
-            q2_s += num
+        if cnt < answer:
+            return -1
+            
+        if q1 > q2:
+            num = queue1.popleft()
+            queue2.append(num)
+            q1 -= num
+            q2 += num
         else:
-            num = q2.popleft()
-            q1.append(num)
-            q2_s -= num
-            q1_s += num
+            num = queue2.popleft()
+            queue1.append(num)
+            q1 += num
+            q2 -= num
         answer += 1
-        
+    
     
     return answer
+
