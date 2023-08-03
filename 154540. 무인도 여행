@@ -28,3 +28,38 @@ def solution(maps):
             
     
     return sorted(answer) if len(answer) else [-1]
+
+
+
+# 다시 풀어봤을때 DFS보다는 BFS로 푸는게 더 효과적이라고 생각해서 변경하였다.
+from collections import deque
+
+def BFS(x, y, maps, visit):
+    num = int(maps[x][y])
+    visit[x][y] = 1
+    control = [[0, 1], [0, -1], [1, 0], [-1, 0]]
+    q = deque()
+    q.append([x, y])
+    
+    while q:
+        x, y = q.popleft()
+        for px, py in control:
+            nx, ny = x+px, y+py
+            if 0 <= nx < len(maps) and 0 <= ny < len(maps[0]) and maps[nx][ny] != 'X' and visit[nx][ny] == 0: 
+                q.append([nx, ny])
+                visit[nx][ny] = 1
+                num += int(maps[nx][ny])
+        
+    return num
+
+def solution(maps):
+    answer = []
+    visit = [[0]*len(maps[0]) for _ in range(len(maps))]
+    
+    for i in range(len(maps)):
+        for j in range(len(maps[0])):
+            if maps[i][j] != 'X' and not(visit[i][j]):
+                answer.append(BFS(i, j, maps, visit))
+    
+    
+    return sorted(answer) if len(answer) else [-1]
